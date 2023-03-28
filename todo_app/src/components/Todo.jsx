@@ -58,7 +58,6 @@ function Todo() {
         </Box>
         <hr style={horizontalStyle}></hr>
       </Box>
-
       <Modal
         open={open}
         onClose={handleClose}
