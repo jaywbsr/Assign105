@@ -1,0 +1,93 @@
+.App {
+  text-align: center;
+}
+
+img{
+  width: 150px;
+  display: flex;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px 0 rgba(85, 85, 85, 0.2), 0 6px 20px 0 rgba(85, 85, 85, 0.2);
+}
+button{
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background-color: rgb(187, 145, 225);
+  border: none;
+  border-radius: 5px;
+  color: rgb(9, 9, 9);
+  width: 50px;
+  height: 30px;
+}
+.type-effect{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  display: inline-block;
+  animation: type 2s steps(20, end) forwards;
+}
+
+
+.navL{
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 0px;
+  font-size: 10px;
+  text-decoration: none;
+}
+a.active{
+  color: red;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+
+@keyframes type {
+  from { width: 0; }
+}
+
+.neon-border {
+  border: 2px solid transparent;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px purple, 0 0 30px purple, 0 0 40px purple, 0 0 55px purple, 0 0 75px purple;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    opacity: 0.8;
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px purple, 0 0 30px purple, 0 0 40px purple ,0 0 55px purple, 0 0 75px purple;
+  }
+  to {
+    opacity: 1;
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px purple, 0 0 60px purple, 0 0 80px purple, 0 0 110px purple, 0 0 150px purple;
+  }
+}
+
+:root{
+  background-color: black;
+}
+
+
+
