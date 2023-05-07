@@ -1,5 +1,4 @@
 import "./App.css";
-import React from "react";
 import CalendarPage from "./pages/Calendar";
 import HomePage from "./pages/HomePage";
 import TodayPage from "./pages/TodayPage";

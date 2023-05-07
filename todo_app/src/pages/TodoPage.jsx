@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import Home from "../components/Home";
 import BottomNav from "../components/BottomNav";
 import Todo from "../components/Todo";
-
 function TodoPage() {
   return (
     <Box
@@ -30,16 +29,16 @@ function TodoPage() {
           borderRadius: "20px",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alighItems: "center",
         }}
       >
         <Todo />
       </Box>
-      <Box 
-        sx={{ 
-            display: { md: "none" }, 
-            }}
-        >
+      <Box
+        sx={{
+          display: { md: "none" },
+        }}
+      >
         <BottomNav />
       </Box>
     </Box>
