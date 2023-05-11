@@ -5,19 +5,24 @@ import UserContext from '../Context/GlobalContext';
 import Cookies from 'js-cookie';
 import Axios from '../AxiosInstance';
 
-
 const Navbar = ({ handleOpen = () => {}, user, setUser = () => {} }) => {
   useEffect(() => {
     // TODO: Implement get user
     const userToken = Cookies.get('UserToken');
-    if(userToken==null||userToken=='undefined') return;
     // 1. check if cookie is set
+    if (userToken == null || userToken == 'undefined') return;
     // 2. send a request to server
-    Axios.get('/me',{headers:{Authorization:`Bearer ${userToken}`,},
-  }).then((res)=>{
+    Axios.get('/me',{ 
+      headers: { 
+        Authorization: `Bearer ${userToken}` 
+      },
+    }).then((res) => {
       // 3. if success, set user information
-      setUser({username:res.data.data.username,
-               email:res.data.data.email,});});
+      setUser({
+        username:res.data.data.username, 
+        email:res.data.data.email,
+      });
+    });
   }, []);
 
   const logout = () => {

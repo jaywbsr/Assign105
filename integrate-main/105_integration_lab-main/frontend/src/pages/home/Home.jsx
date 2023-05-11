@@ -46,7 +46,7 @@ const Home = () => {
   };
   const handleNoteCreateClose = () => {
     setOpenCreate(false);
-  }
+  };
 
   // Note Edit Modal
   const handleNoteEditOpen = () => {
@@ -80,13 +80,24 @@ const Home = () => {
     // TODO: Implement delete note
     // 1. call API to delete note
     try{
-    const userToken=Cookies.get('UserToken');const response=awaitAxios.delete(`/note/${targetNote.id}`,{headers:{Authorization:`Bearer ${userToken}`},});
+    const userToken = Cookies.get('UserToken');
+    const response = await Axios.delete(`/note/${targetNote.id}`,{
+      headers: {Authorization:`Bearer ${userToken}`},
+    });
     // 2. if successful, set status and remove note from state
-    if(response.data.success) {setStatus({severity:'success',msg:'Delete note successfully'});setNotes(notes.filter((n)=>n.id!==targetNote.id));handleNoteDetailClose();}
+    if (response.data.success) {
+      setStatus({severity: 'success', msg: 'Delete note successfully'});
+      setNotes(notes.filter((n) => n.id !== targetNote.id));
+      handleNoteDetailClose();
+    }
+  }catch(error) {
     // 3. if delete note failed, check if error is from calling API or not
-    }catch(error) {
-      // 3. if delete note failed, check if error is from calling API or not
-      if(errorinstanceofAxiosError&&error.response) {setStatus({severity:'error',msg:error.response.data.error});}else{setStatus({severity:'error',msg:error.message});}}
+    if (error instanceof AxiosError && error.response) {
+      setStatus({ severity:'error', msg:error.response.data.error });
+    } else {
+      setStatus({ severity:'error', msg:error.message });
+    }
+  }
   };
 
   return (
@@ -128,6 +139,5 @@ const Home = () => {
     </Container>
   );
 };
-
 
 export default Home;

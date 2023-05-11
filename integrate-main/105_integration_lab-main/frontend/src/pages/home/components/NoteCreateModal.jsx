@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField } from '@mui/material';
 import Cookies from 'js-cookie';
 import { AxiosError } from 'axios';
+import Axios from '../../../share/AxiosInstance';
 import GlobalContext from '../../../share/Context/GlobalContext';
 
 const NoteCreateModal = ({ open = false, handleClose = () => {}, setNotes = () => {} }) => {
@@ -12,29 +13,42 @@ const NoteCreateModal = ({ open = false, handleClose = () => {}, setNotes = () =
   const [error, setError] = useState({});
   const { setStatus } = useContext(GlobalContext);
 
+  const validateForm = () => {
+    const error={};
+    if (!newNote.title) error.title = 'Title is required';
+    if (!newNote.description) error.description = 'Description is required';
+    setError(error);
+    if (Object.keys(error).length) return false;
+    return true;
+  }
+
   const submit = async () => {
     // TODO: Implement create note
     // 1. validate form
-    if(!validateForm()) return;
+    if (!validateForm()) return;
     try{
     // 2. call API to create note
-    const userToken=Cookies.get('UserToken');
-    const response=awaitAxios.post('/note',newNote,{
-      headers:{Authorization:`Bearer ${userToken}`},
+    const userToken = Cookies.get('UserToken');
+    const response = await Axios.post('/note',newNote,{
+      headers: {Authorization:`Bearer ${userToken}`},
     });
     // 3. if successful, add new note to state and close modal
-    if(response.data.success) {
-      setStatus({severity:'success',msg:'Create note successfully'});
-      setNotes((prev)=>[...prev,response.data.data]);
+    if (response.data.success) {
+      setStatus({
+        severity: 'success',
+        msg: 'Create note successfully'
+      });
+      setNotes((prev) => [...prev,response.data.data]);
       resetAndClose();
     }
-    }catch(error) {
-      // 4. if create note failed, check if error is from calling API or not
-      if(errorinstanceofAxiosError&&error.response) {
-        setStatus({severity:'error',msg:error.response.data.error});
-      }else{
-        setStatus({severity:'error',msg:error.message});
-      }}
+    // 4. if create note failed, check if error is from calling API or not
+  } catch(error) {
+    if (error instanceof AxiosError && error.response) {
+      setStatus({ severity:'error', msg:error.response.data.error});
+    } else {
+      setStatus({severity:'error',msg:error.message});
+    }
+  }
   };
 
   const resetAndClose = () => {
@@ -98,11 +112,5 @@ const NoteCreateModal = ({ open = false, handleClose = () => {}, setNotes = () =
     </Dialog>
   );
 };
-
-const validateForm = ()=>{consterror={};
-if(!newNote.title) error.title='Title is required';
-if(!newNote.description) error.description='Description is required';setError(error);
-if(Object.keys(error).length) returnfalse;returntrue;
-}
 
 export default NoteCreateModal;

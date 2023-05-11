@@ -30,8 +30,6 @@ app.use(
   })
 );
 
-app.post('/login',login); 
-
 app.use(express.json());
 
 app.get('/', welcome);
